@@ -34,6 +34,17 @@ def formularioE(request):
     
     return render(request, 'core/formulario-enviado.html')
 
+def nuevo_proveedor (request):
+    datos = {
+        'form' : ProveedorForm()
+    }
+    if request.method=='POST':
+        formulario = ProveedorForm(request.POST)
+        if formulario.is_valid:
+            formulario.save()
+            datos['mensaje']="Guardado Correctamente" 
+    return render(request, 'core/nuevo_proveedor.html', datos)
+
 def form_mod_proveedor (request,id):
     proveedor =get_object_or_404(Proveedor,rut = id)
     datos = {
@@ -44,4 +55,11 @@ def form_mod_proveedor (request,id):
         if formulario.is_valid:
             formulario.save()
             datos['mensaje']="Modificados correctamente" 
+            datos['form'] = formulario
     return render(request, 'core/form_mod_proveedor.html', datos)
+
+def eliminar_proveedor (request,id):
+    proveedor = get_object_or_404(Proveedor,rut = id)
+    proveedor.delete()
+
+    return redirect(to='proveedores')
