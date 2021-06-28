@@ -42,7 +42,9 @@ def nuevo_proveedor (request):
         formulario = ProveedorForm(request.POST)
         if formulario.is_valid:
             formulario.save()
-            datos['mensaje']="Guardado Correctamente" 
+            datos['mensaje']="Guardado Correctamente"
+        else:
+            datos['mensaje']="Cambios no guardados"  
     return render(request, 'core/nuevo_proveedor.html', datos)
 
 def form_mod_proveedor (request,id):
@@ -56,6 +58,8 @@ def form_mod_proveedor (request,id):
             formulario.save()
             datos['mensaje']="Modificados correctamente" 
             datos['form'] = formulario
+        else:
+           datos['mensaje']="Los cambios no han sido modificados"  
     return render(request, 'core/form_mod_proveedor.html', datos)
 
 def eliminar_proveedor (request,id):
