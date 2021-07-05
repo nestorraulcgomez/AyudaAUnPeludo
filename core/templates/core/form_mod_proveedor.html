@@ -1,14 +1,23 @@
 {% extends 'core/base.html' %} {% load static %} {% block css %}
 <link rel="stylesheet" href="{% static 'core/css/estilo.css' %}" />
-{% endblock %} {% block contenido %}
-<form method="POST" action="" id="formulario">
-  {% csrf_token %}
-  <table class="table table-striped table-dark">
-    {{form.as_table}}
-  </table>
-  <input type="submit" class="btn btn-warning" id="enviar" value="Modificar" />
-  <input type="reset" class="btn btn-dark" id="limpiar" value="Limpiar" />
-  <div id="error"></div>
-</form>
-<div class="alert alert-success" role="alert">{{mensaje}}</div>
-{% endblock %}
+{% endblock %} {% block contenido %} {% load crispy_forms_tags %}
+<div class="row">
+  <div class="col-12 col-md-6 offset-md-3">
+    <h1 class="text-center">Modificar Proveedor</h1>
+    <br />
+    <hr />
+    <form method="POST" action="" enctype="multipart/form-data">
+      {% csrf_token %} {{form | crispy}}
+      <br />
+      <div class="d-flex justify-content-end">
+        <input type="submit" class="btn btn-warning" value="Modificar" />
+        &nbsp;
+        <input type="reset" class="btn btn-dark" value="Limpiar" />
+      </div>
+      <div class="d-flex justify-content-center">
+        <h4 class="text-dark">{{mensaje}}</h4>
+      </div>
+    </form>
+  </div>
+</div>
+{{mensaje}} {% endblock %}
